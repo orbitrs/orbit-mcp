@@ -48,9 +48,10 @@ pub async fn create_component(
 ) -> impl IntoResponse {
     // TODO: Implement component creation logic
     // For now, return a mock response
+    let name = request.name.clone();
     let component = Component {
-        id: request.name.to_lowercase(),
-        name: request.name,
+        id: name.to_lowercase(),
+        name,
         path: project_dir.join(format!("src/{}.orbit", request.name.to_lowercase())),
         props: request.props.unwrap_or_default(),
         children: request.has_children.unwrap_or(false),

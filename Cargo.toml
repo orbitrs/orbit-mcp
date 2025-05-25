@@ -25,9 +25,13 @@ tower-http = { version = "0.4", features = ["cors", "trace"] }
 hyper = { version = "0.14", features = ["full"] }
 tokio-tungstenite = "0.20"
 
+# Additional dependencies
+uuid = { version = "1.4", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+humantime-serde = "1.1"
+
 # Orbit ecosystem dependencies
 orbit = { path = "../orbit" }
-orbiton = { path = "../orbiton" }
 orlint = { path = "../orlint" }
 
 [dev-dependencies]

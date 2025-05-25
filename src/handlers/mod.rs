@@ -24,8 +24,8 @@ pub async fn status_handler(
     let state = state.read().await;
     let status = json!({
         "status": "running",
-        "active_connections": state.active_connections,
-        "clients": state.clients,
+        "active_connections": state.active_connections(),
+        "clients": state.clients(),
         "version": env!("CARGO_PKG_VERSION"),
         "uptime_seconds": 0, // TODO: Track uptime
     });

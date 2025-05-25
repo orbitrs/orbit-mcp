@@ -42,6 +42,18 @@ pub struct ServerState {
     clients: Vec<ClientInfo>,
 }
 
+impl ServerState {
+    /// Get the number of active connections
+    pub fn active_connections(&self) -> usize {
+        self.active_connections
+    }
+
+    /// Get a reference to the connected clients
+    pub fn clients(&self) -> &Vec<ClientInfo> {
+        &self.clients
+    }
+}
+
 /// Information about a connected client
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ClientInfo {
