@@ -1,10 +1,10 @@
 // Handler module definition
 
-pub mod components;
-pub mod projects;
 pub mod build;
-pub mod testing;
+pub mod components;
 pub mod documentation;
+pub mod projects;
+pub mod testing;
 
 use axum::{
     http::StatusCode,

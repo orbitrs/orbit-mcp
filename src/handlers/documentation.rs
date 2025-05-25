@@ -11,5 +11,5 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
-use crate::api::documentation::{DocQueryRequest, DocItem, DocCategory};
+use crate::api::documentation::{DocCategory, DocItem, DocQueryRequest};
 use crate::server::ServerState;

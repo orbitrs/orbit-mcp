@@ -11,13 +11,11 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
-use crate::api::projects::{Project, Dependency, ProjectStructure};
+use crate::api::projects::{Dependency, Project, ProjectStructure};
 use crate::server::ServerState;
 
 // Get project information
-pub async fn get_project_info(
-    Extension(project_dir): Extension<PathBuf>,
-) -> impl IntoResponse {
+pub async fn get_project_info(Extension(project_dir): Extension<PathBuf>) -> impl IntoResponse {
     // TODO: Implement project info retrieval logic
     // For now, return a mock response
     let project = Project {

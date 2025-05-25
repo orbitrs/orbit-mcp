@@ -25,7 +25,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Simulate user actions in VS Code
     println!("\nUser opens Orbit project in VS Code");
-    
+
     // Send a request for project information
     let project_info_request = json!({
         "jsonrpc": "2.0",
@@ -33,9 +33,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "method": "project.info",
         "params": {}
     });
-    
-    ws_stream.send(Message::Text(project_info_request.to_string())).await?;
-    
+
+    ws_stream
+        .send(Message::Text(project_info_request.to_string()))
+        .await?;
+
     // Wait for the response
     if let Some(Ok(message)) = ws_stream.next().await {
         if let Message::Text(text) = message {
@@ -46,7 +48,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Simulate user requesting to create a new component via VS Code command
     println!("\nUser executes 'Create New Component' command");
-    
+
     // Send a request to create a new component
     let create_component_request = json!({
         "jsonrpc": "2.0",
@@ -71,9 +73,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
             "has_children": true
         }
     });
-    
-    ws_stream.send(Message::Text(create_component_request.to_string())).await?;
-    
+
+    ws_stream
+        .send(Message::Text(create_component_request.to_string()))
+        .await?;
+
     // Wait for the response
     if let Some(Ok(message)) = ws_stream.next().await {
         if let Message::Text(text) = message {
@@ -84,7 +88,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Simulate user building the project
     println!("\nUser executes 'Build Project' command");
-    
+
     // Send a request to build the project
     let build_request = json!({
         "jsonrpc": "2.0",
@@ -100,13 +104,15 @@ async fn main() -> Result<(), Box<dyn Error>> {
             }
         }
     });
-    
-    ws_stream.send(Message::Text(build_request.to_string())).await?;
-    
+
+    ws_stream
+        .send(Message::Text(build_request.to_string()))
+        .await?;
+
     // Simulate build in progress
     println!("VS Code: Showing build progress in status bar");
     sleep(Duration::from_millis(1000)).await;
-    
+
     // Wait for the response
     if let Some(Ok(message)) = ws_stream.next().await {
         if let Message::Text(text) = message {
@@ -117,7 +123,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Simulate the VS Code extension handling server events
     println!("\nServer sends component change notification");
-    
+
     // Wait for any server event
     if let Some(Ok(message)) = ws_stream.next().await {
         if let Message::Text(text) = message {

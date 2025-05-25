@@ -29,8 +29,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "method": "component.list",
         "params": {}
     });
-    
-    ws_stream.send(Message::Text(list_components_request.to_string())).await?;
+
+    ws_stream
+        .send(Message::Text(list_components_request.to_string()))
+        .await?;
     println!("Sent component list request");
 
     // Wait for the response
@@ -68,8 +70,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
             ]
         }
     });
-    
-    ws_stream.send(Message::Text(create_component_request.to_string())).await?;
+
+    ws_stream
+        .send(Message::Text(create_component_request.to_string()))
+        .await?;
     println!("Sent component creation request");
 
     // Wait for the response
@@ -86,8 +90,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "method": "project.info",
         "params": {}
     });
-    
-    ws_stream.send(Message::Text(project_info_request.to_string())).await?;
+
+    ws_stream
+        .send(Message::Text(project_info_request.to_string()))
+        .await?;
     println!("Sent project info request");
 
     // Wait for the response

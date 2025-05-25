@@ -2,10 +2,10 @@
 
 use anyhow::{Context, Result};
 use axum::{
+    body::Body,
     extract::{Extension, Path},
     http::StatusCode,
     response::{IntoResponse, Json},
-    body::Body,
 };
 use serde_json::{json, Value};
 use std::path::PathBuf;
@@ -16,9 +16,7 @@ use crate::api::components::{Component, CreateComponentRequest, UpdateComponentR
 use crate::server::ServerState;
 
 // List all components
-pub async fn list_components(
-    Extension(project_dir): Extension<PathBuf>,
-) -> impl IntoResponse {
+pub async fn list_components(Extension(project_dir): Extension<PathBuf>) -> impl IntoResponse {
     // TODO: Implement component listing logic
     // For now, return a mock response
     let components = vec![
@@ -71,7 +69,13 @@ pub async fn get_component(
     // For now, return a mock response
     let component = Component {
         id: id.clone(),
-        name: id.chars().next().unwrap().to_uppercase().collect::<String>() + &id[1..],
+        name: id
+            .chars()
+            .next()
+            .unwrap()
+            .to_uppercase()
+            .collect::<String>()
+            + &id[1..],
         path: project_dir.join(format!("src/{}.orbit", id)),
         props: vec![],
         children: false,
@@ -91,7 +95,13 @@ pub async fn update_component(
     // For now, return a mock response
     let component = Component {
         id: id.clone(),
-        name: id.chars().next().unwrap().to_uppercase().collect::<String>() + &id[1..],
+        name: id
+            .chars()
+            .next()
+            .unwrap()
+            .to_uppercase()
+            .collect::<String>()
+            + &id[1..],
         path: project_dir.join(format!("src/{}.orbit", id)),
         props: request.props.unwrap_or_default(),
         children: false,
@@ -108,6 +118,9 @@ pub async fn delete_component(
 ) -> impl IntoResponse {
     // TODO: Implement component deletion logic
     // For now, return a mock response
-    
-    (StatusCode::OK, Json(json!({ "success": true, "message": format!("Component {} deleted", id) })))
+
+    (
+        StatusCode::OK,
+        Json(json!({ "success": true, "message": format!("Component {} deleted", id) })),
+    )
 }

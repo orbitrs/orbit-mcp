@@ -112,14 +112,8 @@ impl McpServer {
             )
             // Project API endpoints
             .route("/project", get(handlers::projects::get_project_info))
-            .route(
-                "/project/build",
-                post(handlers::build::build_project),
-            )
-            .route(
-                "/project/test",
-                post(handlers::testing::run_tests),
-            );
+            .route("/project/build", post(handlers::build::build_project))
+            .route("/project/test", post(handlers::testing::run_tests));
 
         // Create the main router
         let app = Router::new()
@@ -203,10 +197,7 @@ impl McpServer {
             }
         });
 
-        if let Err(e) = sender
-            .send(Message::Text(welcome.to_string()))
-            .await
-        {
+        if let Err(e) = sender.send(Message::Text(welcome.to_string())).await {
             error!("Failed to send welcome message: {}", e);
         }
 
@@ -239,7 +230,7 @@ impl McpServer {
         // Forward broadcast events to the client
         let state_clone = state.clone();
         let client_id_clone = client_id.clone();
-        
+
         let send_task = tokio::spawn(async move {
             while let Ok(event) = event_rx.recv().await {
                 // Serialize the event to JSON
@@ -287,15 +278,18 @@ impl McpServer {
     ) {
         // Parse the JSON-RPC message
         let request: Result<Value, _> = serde_json::from_str(&text);
-        
+
         match request {
             Ok(request) => {
-                debug!("Received JSON-RPC request from client {}: {:?}", client_id, request);
-                
+                debug!(
+                    "Received JSON-RPC request from client {}: {:?}",
+                    client_id, request
+                );
+
                 // Extract method and params
                 let method = request["method"].as_str();
                 let id = request["id"].as_u64();
-                
+
                 if let Some(method) = method {
                     // Handle different methods
                     match method {
